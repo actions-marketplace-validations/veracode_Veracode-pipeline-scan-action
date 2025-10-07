@@ -121,9 +121,7 @@ parameters['artifact_name'] = artifact_name
 
 const workflow_app = core.getInput('workflow_app', {required: false} );
 
-
-
-
+const platformType = core.getInput('platformType', {required: false} );
 
 
 async function run (parameters:any){
@@ -171,14 +169,24 @@ async function run (parameters:any){
         core.info('---- DEBUG OUTPUT END ----')
     }
 
+    const { DefaultArtifactClient } = require('@actions/artifact');
+    const artifactV1 = require('@actions/artifact-v1');
+    let artifactClient;
+
+    if (platformType === 'ENTERPRISE') {
+        artifactClient = artifactV1.create();
+        core.info(`Initialized the artifact object using version V1.`);
+    } else {
+        artifactClient = new DefaultArtifactClient();
+        core.info(`Initialized the artifact object using version V2.`);
+    }
+
     //check if results files exists and if so store them as artifacts
     if ( existsSync(rootDirectory+'/'+parameters.json_output_file && rootDirectory+'/'+parameters.filtered_json_output_file && rootDirectory+'/'+parameters.summary_output_file) ){
         core.info('Results files exist - storing as artifact')
     
         
         //store output files as artifacts
-        const { DefaultArtifactClient } = require('@actions/artifact')
-        const artifactClient = new DefaultArtifactClient()
         const artifactName = 'Veracode Pipeline-Scan Results - '+parameters.artifact_name;
         const files = [
             parameters.json_output_file,
@@ -226,8 +234,6 @@ async function run (parameters:any){
             core.info('Error creating empty results files')
         }
 
-        const { DefaultArtifactClient } = require('@actions/artifact')
-        const artifactClient = new DefaultArtifactClient()
         const artifactName = 'Veracode Pipeline-Scan Results - '+parameters.artifact_name;
         const files = [
             parameters.filtered_json_output_file
