@@ -348,6 +348,10 @@ async function run (parameters:any){
         }
     }
 
+    console.info('check if we need to fail the build based on fail_build parameter value')
+    console.info('fail_build parameter value: '+parameters.fail_build)
+    console.info('workflow_app parameter value: '+workflow_app)
+    console.info('scan command output: '+scanCommandOutput)
     if (parameters.fail_build == "false") {
         console.log('console coming here......');
         core.info('Check if we need to fail the build')
