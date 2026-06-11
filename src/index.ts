@@ -328,10 +328,11 @@ async function run (parameters:any){
     }
 
     if ( parameters.fail_build == "true" && workflow_app == "false"){
+        console.log('console coming here......');
         core.info('Check if we need to fail the build')
         const failureRegex = /FAILURE: Found \d+ issues!/
         let failBuild = failureRegex.test(scanCommandOutput)
-
+        console.log('Fail build value: '+failBuild)
 
         if (parameters.debug == 1 ){
             core.info('---- DEBUG OUTPUT START ----')
