@@ -352,7 +352,7 @@ async function run (parameters:any){
     console.info('fail_build parameter value: '+parameters.fail_build)
     console.info('workflow_app parameter value: '+workflow_app)
     console.info('scan command output: '+scanCommandOutput)
-    if (parameters.fail_build == "false") {
+    if (parameters.fail_build == "true") {
         console.log('console coming here......');
         core.info('Check if we need to fail the build')
         const failureRegex = /FAILURE: Found \d+ issues!/
