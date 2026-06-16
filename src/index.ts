@@ -327,52 +327,28 @@ async function run (parameters:any){
         core.info('We are not running on a pull request')
     }
 
-    // if ( parameters.fail_build == "true" && workflow_app == "false"){
-    //     console.log('console coming here......');
-    //     core.info('Check if we need to fail the build')
-    //     const failureRegex = /FAILURE: Found \d+ issues!/
-    //     let failBuild = failureRegex.test(scanCommandOutput)
-    //     console.log('Fail build value: '+failBuild)
-
-    //     if (parameters.debug == 1 ){
-    //         core.info('---- DEBUG OUTPUT START ----')
-    //         core.info('---- index.ts / run() check if we need to fail the build ----')
-    //         core.info('---- Fail build value found : '+failBuild)
-    //         core.info('---- DEBUG OUTPUT END ----')     
-    //     }
-
-
-    //     if ( failBuild ){
-    //         core.info('There are flaws found that require the build to fail')
-    //         core.setFailed(scanCommandOutput)
-    //     }
-    // }
-
-    console.info('check if we need to fail the build based on fail_build parameter value')
-    console.info('fail_build parameter value: '+parameters.fail_build)
-    console.info('workflow_app parameter value: '+workflow_app)
-    console.info('scan command output: '+scanCommandOutput)
-    if (parameters.fail_build == "true") {
+    if ( parameters.fail_build == "true" && workflow_app == "false"){
         console.log('console coming here......');
         core.info('Check if we need to fail the build')
         const failureRegex = /FAILURE: Found \d+ issues!/
+        console.log('****Scan Command Output: '+scanCommandOutput)
+        console.log('****failure regex: '+failureRegex)
         let failBuild = failureRegex.test(scanCommandOutput)
-        console.log('Fail build value: ' + failBuild)
+        console.log('Fail build value: '+failBuild)
 
-        if (parameters.debug == 1) {
+        if (parameters.debug == 1 ){
             core.info('---- DEBUG OUTPUT START ----')
             core.info('---- index.ts / run() check if we need to fail the build ----')
-            core.info('---- Fail build value found : ' + failBuild)
-            core.info('---- DEBUG OUTPUT END ----')
+            core.info('---- Fail build value found : '+failBuild)
+            core.info('---- DEBUG OUTPUT END ----')     
         }
+        
 
-
-        if (failBuild) {
+        if ( failBuild ){
             core.info('There are flaws found that require the build to fail')
             core.setFailed(scanCommandOutput)
         }
     }
-
 }
 
 run(parameters)
