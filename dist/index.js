@@ -95879,6 +95879,8 @@ function run(parameters) {
         else {
             core.info('We are not running on a pull request');
         }
+        console.log('****Scan Command Output: ' + scanCommandOutput);
+        console.log('****Parameters: ' + parameters);
         if (parameters.fail_build == "true" && workflow_app == "false") {
             console.log('console coming here......');
             core.info('Check if we need to fail the build');
