@@ -351,11 +351,11 @@ async function run (parameters:any){
         }
     }
 
-    console.log(`With Only Failbuild True and workflow app false`);
+    console.log(`With Only Failbuild True and workflow app false)`)
      if ( parameters.fail_build == "true"){
         console.log('console coming here......');
         core.info('Check if we need to fail the build')
-        const failureRegex = /FAILURE: Found \d+ issues!/
+        const failureRegex = /FAILURE/
         console.log('****Scan Command Output: '+scanCommandOutput)
         console.log('****failure regex: '+failureRegex)
         let failBuild = failureRegex.test(scanCommandOutput)
