@@ -345,11 +345,9 @@ async function run (parameters:any){
             core.info('There are flaws found that require the build to fail')
             core.setFailed(scanCommandOutput)
         }
-    }
-
-    if (parameters.fail_build == "true") {
+    }else{
         core.info('Check if we need to fail the build')
-        const failureRegex = /FAILURE/
+        const failureRegex = /FAILURE/                      // this is a more general regex to catch FAILURE if workflow_app value is true. 
         let failBuild = failureRegex.test(scanCommandOutput)
         console.log('Fail build value: ' + failBuild)
 
