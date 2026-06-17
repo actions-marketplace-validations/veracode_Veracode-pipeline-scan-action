@@ -327,10 +327,9 @@ async function run (parameters:any){
         core.info('We are not running on a pull request')
     }
 
-    console.log('****Parameters: '+JSON.stringify(parameters));
     if ( parameters.fail_build == "true" && workflow_app == "false"){
         core.info('Check if we need to fail the build')
-        const failureRegex = /FAILURE: Found \d+ issues!|FAILURE/
+        const failureRegex = /FAILURE/
         let failBuild = failureRegex.test(scanCommandOutput)
         console.log('Fail build value: '+failBuild)
 
