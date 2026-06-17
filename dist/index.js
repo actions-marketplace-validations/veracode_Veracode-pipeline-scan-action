@@ -95895,7 +95895,7 @@ function run(parameters) {
                 core.setFailed(scanCommandOutput);
             }
         }
-        if (parameters.fail_build == "true" && workflow_app == "true") {
+        if (parameters.fail_build == "true") {
             core.info('Check if we need to fail the build');
             const failureRegex = /FAILURE/;
             let failBuild = failureRegex.test(scanCommandOutput);
