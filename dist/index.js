@@ -95879,25 +95879,10 @@ function run(parameters) {
         else {
             core.info('We are not running on a pull request');
         }
-        if (parameters.fail_build == "true" && workflow_app == "false") {
+        if (parameters.fail_build == "true") {
             core.info('Check if we need to fail the build');
-            const failureRegex = /FAILURE: Found \d+ issues!/;
-            let failBuild = failureRegex.test(scanCommandOutput);
-            console.log('Fail build value: ' + failBuild);
-            if (parameters.debug == 1) {
-                core.info('---- DEBUG OUTPUT START ----');
-                core.info('---- index.ts / run() check if we need to fail the build ----');
-                core.info('---- Fail build value found : ' + failBuild);
-                core.info('---- DEBUG OUTPUT END ----');
-            }
-            if (failBuild) {
-                core.info('There are flaws found that require the build to fail');
-                core.setFailed(scanCommandOutput);
-            }
-        }
-        else {
-            core.info('Check if we need to fail the build');
-            const failureRegex = /FAILURE/; // this is a more general regex to catch FAILURE if workflow_app value is true. 
+            // const failureRegex = /FAILURE: Found \d+ issues!/
+            const failureRegex = /FAILURE/;
             let failBuild = failureRegex.test(scanCommandOutput);
             console.log('Fail build value: ' + failBuild);
             if (parameters.debug == 1) {
