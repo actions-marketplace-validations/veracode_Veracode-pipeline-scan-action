@@ -68,7 +68,7 @@ function runScan(scanCommand, parameters) {
 }
 exports.runScan = runScan;
 function getPolicyFile(scanCommand, parameters) {
-    let commandOutput = (0, child_process_1.execSync)(scanCommand);
+    let commandOutput = (0, child_process_1.execSync)(scanCommand, { encoding: 'utf8' });
     if (parameters.debug == 1) {
         core.info('---- DEBUG OUTPUT START ----');
         core.info('---- pipeline-scan.ts / getPolicyFile() ----');

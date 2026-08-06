@@ -97,12 +97,13 @@ function checkParameters(parameters) {
                 core.info('---- DEBUG OUTPUT END ----');
             }
             if (response.data.page.total_elements != '0') {
-                if (response.data._embedded.policy_versions[0].type == 'BUILTIN') {
+                const matchedPolicy = response.data._embedded.policy_versions.find((policy_version) => policy_version.name === parameters.veracode_policy_name);
+                if (matchedPolicy.type == 'BUILTIN') {
                     core.info('Built-in Policy is required');
                     core.info('Setting policy to ' + parameters.veracode_policy_name);
                     scanCommand += ' --policy_name "' + parameters.veracode_policy_name + '"';
                 }
-                else if (response.data._embedded.policy_versions[0].type == 'CUSTOMER') {
+                else if (matchedPolicy.type == 'CUSTOMER') {
                     core.info('Custom Policy is required');
                     core.info('Downloading custom policy file and setting policy to ' + parameters.veracode_policy_name);
                     policyCommand = 'java -jar pipeline-scan.jar -vid ' + parameters.vid + ' -vkey ' + parameters.vkey + ' --request_policy "' + parameters.veracode_policy_name + '"';
