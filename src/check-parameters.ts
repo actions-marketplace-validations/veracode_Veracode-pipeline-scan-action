@@ -68,13 +68,15 @@ export async function checkParameters (parameters:any):Promise<string>  {
             }
 
             if ( response.data.page.total_elements != '0' ){
+                const matchedPolicy = response.data._embedded.policy_versions.find((policy_version: any) => policy_version.name === parameters.veracode_policy_name);
 
-                if ( response.data._embedded.policy_versions[0].type == 'BUILTIN' ){
+
+                if ( matchedPolicy.type == 'BUILTIN' ){
                     core.info('Built-in Policy is required')
                     core.info('Setting policy to '+parameters.veracode_policy_name)
                     scanCommand += ' --policy_name "'+parameters.veracode_policy_name+'"'
                 }
-                else if ( response.data._embedded.policy_versions[0].type == 'CUSTOMER' ){
+                else if ( matchedPolicy.type == 'CUSTOMER' ){
                     core.info('Custom Policy is required')
                     core.info('Downloading custom policy file and setting policy to '+parameters.veracode_policy_name)
 

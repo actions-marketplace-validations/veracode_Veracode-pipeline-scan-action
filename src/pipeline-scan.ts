@@ -53,7 +53,7 @@ export function runScan (scanCommand:any,parameters:any){
 }
 
 export function getPolicyFile (scanCommand:any,parameters:any){
-    let commandOutput = execSync(scanCommand)
+    let commandOutput = execSync(scanCommand, { encoding: 'utf8' })
 
     if (parameters.debug == 1 ){
         core.info('---- DEBUG OUTPUT START ----')
