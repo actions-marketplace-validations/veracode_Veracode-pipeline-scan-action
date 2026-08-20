@@ -69,7 +69,7 @@ function checkParameters(parameters) {
             }
             core.info('Check whether a built-in or a custom policy is required');
             const uriPath = '/appsec/v1/policies';
-            const queryparams = '?name=' + encodeURIComponent(parameters.veracode_policy_name);
+            const queryparams = '?name=' + encodeURIComponent(parameters.veracode_policy_name) + "&name_exact=true";
             const path = uriPath + queryparams;
             const appUrl = apiUrl + uriPath + queryparams;
             //const headers = {'Authorization':auth.generateHeader(appUrl, 'GET', apiUrl, cleanedID, cleanedKEY)}
@@ -97,6 +97,7 @@ function checkParameters(parameters) {
                 core.info('---- DEBUG OUTPUT END ----');
             }
             if (response.data.page.total_elements != '0') {
+                // const matchedPolicy = response.data._embedded.policy_versions.find((policy_version: any) => policy_version.name === parameters.veracode_policy_name);
                 if (response.data._embedded.policy_versions[0].type == 'BUILTIN') {
                     core.info('Built-in Policy is required');
                     core.info('Setting policy to ' + parameters.veracode_policy_name);
