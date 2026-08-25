@@ -114,6 +114,9 @@ inputs:
   esd:
     description: 'Enable ESD (Extended Static Analysis) mode. Takes true or false'
     required: false
+  fail_build_error:
+    description: 'Fail the build upon errors. Takes true or false'
+    required: false
 runs:
   using: 'node24'
   main: 'dist/index.js'
